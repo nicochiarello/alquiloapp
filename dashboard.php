@@ -52,7 +52,7 @@
   </div>
 
   <!-- Main content -->
-  <main class="flex flex-col bg-gray-300 p-2 sm:w-full sm:px-8 sm:py-4 gap-8">
+  <main class="flex flex-col p-2 sm:w-full sm:px-8 sm:py-4 gap-8">
     <div class="flex flex-col gap-4">
       <div class="flex gap-4 items-center ">
         <div class="p-4 rounded-full bg-blue-600 text-white">
@@ -73,7 +73,7 @@
 
     <!-- Property list -->
     <div
-      class="grid md:grid-cols-2 xl:grid-cols-3 gap-4 p-4 w-full h-full overflow-y-scroll bg-gray-600 rounded-lg scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      class="grid md:grid-cols-2 xl:grid-cols-3 gap-4 p-4 w-full h-full overflow-y-scroll shadow-2xl rounded-lg scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
       <?php
       //  DB connection
       require_once 'db_connect.php';
@@ -143,10 +143,22 @@
                   </div>
                 </div>
                 <div class="flex flex-col gap-2">
-                  <button class="flex items-center justify-center p-2 bg-red-600 rounded-lg text-white">
-                    <i class="bx bx-trash text-xl"></i>
-                  </button>
-                  <button class="flex items-center justify-center p-2 bg-blue-600 rounded-lg text-white">
+                  <form method="POST" action="property/delete.php" onsubmit="return confirm('¿Eliminar este inmueble?');">
+                    <input type="hidden" name="id" value="<?= (int) $row['id'] ?>">
+                    <button type="submit" class="flex items-center justify-center p-2 bg-red-600 rounded-lg text-white">
+                      <i class="bx bx-trash text-xl"></i>
+                    </button>
+                  </form>
+
+                  <button type="button"
+                    class="editBtn flex items-center justify-center p-2 bg-blue-600 rounded-lg text-white"
+                    data-id="<?= $row['id'] ?>" data-title="<?= htmlspecialchars($row['title']) ?>"
+                    data-type="<?= $row['type'] ?>" data-price="<?= (int) $row['price'] ?>"
+                    data-location="<?= htmlspecialchars($row['location']) ?>" data-area="<?= (int) $row['area'] ?>"
+                    data-beds="<?= (int) $row['beds'] ?>" data-baths="<?= (int) $row['baths'] ?>"
+                    data-garage="<?= (int) $row['garage'] ?>"
+                    data-description="<?= htmlspecialchars($row['description']) ?>"
+                    data-image="<?= htmlspecialchars($row['image'] ? '/' . ltrim($row['image'], '/') : '') ?>">
                     <i class="bx bx-edit text-xl"></i>
                   </button>
                 </div>
@@ -162,21 +174,29 @@
 
     <!-- Create Property Modal -->
     <dialog id="createModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-         w-[min(600px,92vw)] max-h-[90svh] overflow-auto rounded-2xl p-0
-         shadow-xl
-         [&::backdrop]:bg-black/50 [&::backdrop]:backdrop-blur-sm">
+  w-[min(600px,92vw)] max-h-[90svh] overflow-auto rounded-2xl p-0 shadow-xl
+  [&::backdrop]:bg-black/50 [&::backdrop]:backdrop-blur-sm">
+
       <!-- Header -->
       <div class="flex items-center justify-between p-4 border-b">
-        <h2 class="text-lg font-semibold">Crear inmueble</h2>
+        <h2 id="modalTitle" class="text-lg font-semibold">Crear inmueble</h2>
         <button id="closeCreate" class="p-2 rounded hover:bg-gray-100">
           <i class="bx bx-x text-2xl"></i>
         </button>
       </div>
 
-      <!-- Form -->
-      <form action="property/create.php" method="POST" enctype="multipart/form-data" class="p-4 space-y-4">
-        <!-- CSRF (server should generate this token) -->
-        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
+      <!-- Form for update-delete -->
+      <form id="propertyForm" action="property/create.php" method="POST" enctype="multipart/form-data"
+        class="p-4 space-y-4">
+        <!-- Hidden for EDIT -->
+        <input type="hidden" name="id" id="propId">
+        <input type="hidden" name="image_old" id="imageOld">
+
+        <!-- Preview imagen -->
+        <div id="currentImageWrap" class="hidden">
+          <p class="text-sm text-gray-600 mb-1">Imagen actual:</p>
+          <img id="currentImage" src="" alt="Imagen actual" class="w-full max-h-56 object-cover rounded">
+        </div>
 
         <!-- Title -->
         <div class="flex flex-col gap-1">
@@ -232,7 +252,7 @@
           </div>
           <div class="flex flex-col content-end">
             <label class="inline-flex items-center gap-2">
-              <input type="checkbox" name="garage" class="size-4">
+              <input type="checkbox" id="garage" name="garage" class="size-4">
               <span class="text-sm">Garage</span>
             </label>
           </div>
@@ -248,66 +268,166 @@
 
         <!-- Image -->
         <div class="grid gap-1">
-          <label for="image" class="text-sm font-medium">Imagen principal</label>
+          <label for="image" class="text-sm font-medium">Imagen principal (opcional)</label>
           <input id="image" name="image" type="file" accept="image/*" class="border w-full rounded-lg px-3 py-2">
-          <p class="text-xs text-gray-500">JPG/PNG hasta 2MB.</p>
+          <p class="text-xs text-gray-500">JPG/PNG/WEBP.</p>
         </div>
 
         <!-- Actions -->
         <div class="flex items-center justify-end gap-2 pt-2 border-t">
           <button type="button" id="cancelCreate" class="px-4 py-2 rounded-lg border">Cancelar</button>
-          <button type="submit" class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">
+          <button id="submitBtn" type="submit" class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">
             Guardar
           </button>
         </div>
       </form>
     </dialog>
+
   </main>
 
 
 
 
   <script>
-    // Minimal, accessible open/close logic (no external deps)
+    // Elements
     const openBtn = document.getElementById('openCreate');
     const modal = document.getElementById('createModal');
     const closeBtn = document.getElementById('closeCreate');
     const cancelBtn = document.getElementById('cancelCreate');
 
-    // Remember last focused element to restore focus after close
-    let lastFocus = null;
+    const form = document.getElementById('propertyForm');
+    const modalTitle = document.getElementById('modalTitle');
+    const submitBtn = document.getElementById('submitBtn');
 
-    function openModal() {
-      lastFocus = document.activeElement;
-      if (typeof modal.showModal === 'function') {
-        modal.showModal();
-        // Focus first input
-        const firstInput = modal.querySelector('input, select, textarea, button');
-        firstInput?.focus();
-      } else {
-        // Fallback if <dialog> not supported
-        modal.setAttribute('open', '');
-      }
+    // Inputs
+    const idInput = document.getElementById('propId');
+    const imgOldInp = document.getElementById('imageOld');
+
+    const titleInp = document.getElementById('title');
+    const typeSel = document.getElementById('type');
+    const priceInp = document.getElementById('price');
+    const locInp = document.getElementById('location');
+    const areaInp = document.getElementById('area');
+    const bedsInp = document.getElementById('beds');
+    const bathsInp = document.getElementById('baths');
+    const garageChk = document.getElementById('garage');
+    const descTxt = document.getElementById('description');
+    const imageInp = document.getElementById('image');
+
+    // Current image preview for edit
+    const currentImageWrap = document.getElementById('currentImageWrap');
+    const currentImage = document.getElementById('currentImage');
+
+    // Helpers
+    function openDialog() {
+      if (typeof modal.showModal === 'function') modal.showModal();
+      else modal.setAttribute('open', '');
     }
-    function closeModal() {
+    function closeDialog() {
       modal.close();
-      lastFocus?.focus();
+      form.reset();
     }
 
-    openBtn?.addEventListener('click', openModal);
-    closeBtn?.addEventListener('click', closeModal);
-    cancelBtn?.addEventListener('click', closeModal);
+    function setModeCreate() {
+      modalTitle.textContent = 'Crear inmueble';
+      submitBtn.textContent = 'Guardar';
+      form.action = 'property/create.php';
 
-    // Optional: close on backdrop click
+      // Clear all fields
+      idInput.value = '';
+      imgOldInp.value = '';
+      titleInp.value = '';
+      typeSel.value = 'rent';
+      priceInp.value = '';
+      locInp.value = '';
+      areaInp.value = '';
+      bedsInp.value = 0;
+      bathsInp.value = 0;
+      garageChk.checked = false;
+      descTxt.value = '';
+      imageInp.value = '';
+
+      currentImageWrap.classList.add('hidden');
+      currentImage.src = '';
+    }
+
+    function setModeEdit(data) {
+      modalTitle.textContent = 'Editar inmueble';
+      submitBtn.textContent = 'Guardar cambios';
+      form.action = 'property/update.php';
+
+      idInput.value = data.id || '';
+      imgOldInp.value = data.image || '';
+
+      titleInp.value = data.title || '';
+      typeSel.value = data.type || 'rent';
+      priceInp.value = data.price || 0;
+      locInp.value = data.location || '';
+      areaInp.value = data.area || 0;
+      bedsInp.value = data.beds || 0;
+      bathsInp.value = data.baths || 0;
+      garageChk.checked = (String(data.garage) === '1');
+      descTxt.value = data.description || '';
+      imageInp.value = "";
+
+
+
+      if (data.image) {
+        currentImage.src = data.image.startsWith('/')
+          ? window.location.origin + '/alquiloapp' + data.image
+          : window.location.origin + '/alquiloapp/' + data.image;
+        currentImageWrap.classList.remove('hidden');
+      } else {
+        currentImageWrap.classList.add('hidden');
+        currentImage.src = '';
+      }
+
+    }
+
+    // Open create
+    openBtn?.addEventListener('click', () => {
+      setModeCreate();
+      openDialog();
+    });
+
+    // Open edit
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.editBtn');
+      if (!btn) return;
+
+      const data = {
+        id: btn.dataset.id,
+        title: btn.dataset.title,
+        type: btn.dataset.type,
+        price: btn.dataset.price,
+        location: btn.dataset.location,
+        area: btn.dataset.area,
+        beds: btn.dataset.beds,
+        baths: btn.dataset.baths,
+        garage: btn.dataset.garage,
+        description: btn.dataset.description,
+        image: btn.dataset.image
+      };
+
+      setModeEdit(data);
+      openDialog();
+    });
+
+    // Close
+    closeBtn?.addEventListener('click', closeDialog);
+    cancelBtn?.addEventListener('click', closeDialog);
+
+    // Backdrop click
     modal.addEventListener('click', (e) => {
       const rect = modal.getBoundingClientRect();
       const inDialog = (
         e.clientX >= rect.left && e.clientX <= rect.right &&
         e.clientY >= rect.top && e.clientY <= rect.bottom
       );
-      if (!inDialog) closeModal();
+      if (!inDialog) closeDialog();
     });
   </script>
+
 </body>
 
 </html>
