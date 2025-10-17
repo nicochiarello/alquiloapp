@@ -1,6 +1,17 @@
 <?php
+
+session_start();
+
 require_once __DIR__ . '/../db_connect.php';
 
+if (!isset($_SESSION['user_id'])) {
+    // Not logged in, redirect to login
+    header("Location: /alquiloapp/login.php");
+
+    exit;
+}
+
+$user_id = $_SESSION['user_id'];
 $title = $_POST['title'] ?? '';
 $type = $_POST['type'] ?? 'rent'; // rent|sale
 $price = (int) ($_POST['price'] ?? 0);
@@ -29,12 +40,13 @@ if (!empty($_FILES['image']['name'])) {
 
 // Insert into database
 $sql = "INSERT INTO property
-(title, type, price, location, area, beds, baths, garage, description, image)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+(user_id, title, type, price, location, area, beds, baths, garage, description, image)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 $stmt = $conn->prepare($sql);
 $stmt->bind_param(
-    'ssissiiiss',
+    'ississiiiss',
+    $user_id,
     $title,
     $type,
     $price,
