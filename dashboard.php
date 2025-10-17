@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="./styles/output.css">
   <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
 </head>
 
@@ -19,10 +19,10 @@ if (!isset($_SESSION['user_id'])) {
 }
 ?>
 
-<body class="flex flex-col sm:flex-row w-full h-screen overflow-x-hidden">
+<body class="flex flex-col sm:flex-row w-full h-screen overflow-x-hidden bg-bg">
   <!-- Sidebar -->
   <div
-    class="hidden sm:flex flex-col items-center lg:items-start gap-2  lg:w-[280px] h-screen bg-blue-500 p-4 rounded-r-4xl">
+    class="hidden sm:flex flex-col items-center lg:items-start gap-2  lg:w-[280px] h-screen bg-primary p-4 rounded-r-4xl">
     <div class="flex gap-2 items-center">
       <p>L</p>
       <h1 class="hidden lg:block text-2xl font-semibold text-white">AlquiloApp</h1>
@@ -65,16 +65,16 @@ if (!isset($_SESSION['user_id'])) {
   <main class="flex flex-col p-2 sm:w-full sm:px-8 sm:py-4 gap-8">
     <div class="flex flex-col gap-4">
       <div class="flex gap-4 items-center ">
-        <div class="p-4 rounded-full bg-blue-600 text-white">
+        <div class="p-4 rounded-full bg-btn-primary text-white">
           <i class='bx  bx-user text-[54px]'></i>
         </div>
         <div class="flex-col gap-4">
-          <h3 class="text-2xl font-semibold capitalize">Hola, <?php echo $_SESSION['user_name']?></h3>
+          <h3 class="text-2xl font-semibold capitalize">Hola, <?php echo $_SESSION['user_name'] ?></h3>
           <p>Administra tus inmuebles aqui</p>
         </div>
       </div>
       <button id="openCreate">
-        <div class="flex gap-4 text-white rounded-lg bg-blue-600 w-fit px-4 py-2">
+        <div class="flex gap-4 text-white rounded-lg bg-btn-primary w-fit px-4 py-2">
           <i class='bxr  bx-plus text-2xl'></i>
           <span>Agregar inmueble</span>
         </div>

@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login</title>
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="./styles/output.css">
   <link href="https://cdn.boxicons.com/fonts/basic/boxicons.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-gray-100">
   <div class="min-h-screen flex items-center justify-center">
     <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
@@ -25,14 +27,9 @@
       <form action="/alquiloapp/auth/login.php" method="POST" class="space-y-4">
         <div>
           <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value="<?= isset($_GET['old']['email']) ? htmlspecialchars($_GET['old']['email']) : '' ?>"
-            required
-            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-          >
+          <input type="email" id="email" name="email"
+            value="<?= isset($_GET['old']['email']) ? htmlspecialchars($_GET['old']['email']) : '' ?>" required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
           <?php if (isset($_GET['field_errors']['email'])): ?>
             <p class="text-red-500 text-sm mt-1"><?= htmlspecialchars($_GET['field_errors']['email']) ?></p>
           <?php endif; ?>
@@ -40,20 +37,14 @@
 
         <div>
           <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            required
-            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-          >
+          <input type="password" id="password" name="password" required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
           <?php if (isset($_GET['field_errors']['password'])): ?>
             <p class="text-red-500 text-sm mt-1"><?= htmlspecialchars($_GET['field_errors']['password']) ?></p>
           <?php endif; ?>
         </div>
 
-        <button
-          type="submit"
+        <button type="submit"
           class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
           Entrar
         </button>
@@ -65,4 +56,5 @@
     </div>
   </div>
 </body>
+
 </html>
