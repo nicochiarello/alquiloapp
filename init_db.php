@@ -26,6 +26,7 @@ $conn->select_db($dbName);
 $tableSql = "
 CREATE TABLE IF NOT EXISTS property (
   id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
   title VARCHAR(120) NOT NULL,
   type ENUM('rent','sale') NOT NULL,
   price INT NOT NULL DEFAULT 0,
@@ -43,6 +44,24 @@ CREATE TABLE IF NOT EXISTS property (
 
 if ($conn->query($tableSql) === TRUE) {
     echo "✅ Tabla 'property' creada o ya existente.<br>";
+} else {
+    die("❌ Error al crear tabla: " . $conn->error);
+}
+
+// --- Create the table users ---
+$tableSql = "
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  name VARCHAR(100) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+";
+
+if ($conn->query($tableSql) === TRUE) {
+    echo "✅ Tabla 'users' creada o ya existente.<br>";
 } else {
     die("❌ Error al crear tabla: " . $conn->error);
 }
