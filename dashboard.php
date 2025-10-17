@@ -9,6 +9,16 @@
   <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
 </head>
 
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+  // Not logged in, redirect to login
+  header("Location: /alquiloapp/login.php");
+
+  exit;
+}
+?>
+
 <body class="flex flex-col sm:flex-row w-full h-screen overflow-x-hidden">
   <!-- Sidebar -->
   <div
@@ -25,7 +35,7 @@
       <ul class="flex text-gray-700 flex-col p-4">
         <li class="flex gap-8">
           <p>Icon</p>
-          <a class="hidden lg:block" href="#">
+          <a class="hidden lg:block" href="auth/logout.php">
             Cerrar sesión
           </a>
         </li>
@@ -59,7 +69,7 @@
           <i class='bx  bx-user text-[54px]'></i>
         </div>
         <div class="flex-col gap-4">
-          <h3 class="text-2xl font-semibold">Hola, Nicolas Chiarello</h3>
+          <h3 class="text-2xl font-semibold capitalize">Hola, <?php echo $_SESSION['user_name']?></h3>
           <p>Administra tus inmuebles aqui</p>
         </div>
       </div>
@@ -78,7 +88,12 @@
       //  DB connection
       require_once 'db_connect.php';
 
-      $result = $conn->query("SELECT * FROM property ORDER BY id DESC");
+      // Use a prepared statement and cast user_id to int to avoid SQL injection and parsing issues
+      $userId = isset($_SESSION['user_id']) ? (int) $_SESSION['user_id'] : 0;
+      $stmt = $conn->prepare("SELECT * FROM property WHERE user_id = ? ORDER BY id DESC");
+      $stmt->bind_param("i", $userId);
+      $stmt->execute();
+      $result = $stmt->get_result();
 
 
       if ($result && $result->num_rows > 0):
