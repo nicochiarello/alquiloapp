@@ -10,7 +10,7 @@
 </head>
 
 <body class="flex flex-col">
-    <div class="flex flex-col w-full h-screen max-h-[1100px]">
+    <div class="flex flex-col w-full h-screen max-h-[800px]">
         <!-- Navbar -->
         <?php include 'includes/navbar.php'; ?>
         <div class="flex flex-1 h-full ">
