@@ -1,5 +1,5 @@
 <div class="w-full flex flex-col">
-    <div class="w-full py-4 bg-secondary flex flex-col gap-8 sm:flex-row justify-between items-center  px-8">
+    <div class="w-full p-12 bg-secondary flex flex-col gap-8 sm:flex-row justify-between items-center">
         <div class="flex flex-col items-center gap-2">
             <div class="w-24">
                 <?php include './public/logo.svg'; ?>
