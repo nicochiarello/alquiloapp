@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <link rel="stylesheet" href="./styles/output.css">
-    <title>Document</title>
+    <title>AlquiloApp</title>
 </head>
 
 <body class="flex flex-col">
@@ -44,6 +44,111 @@
             </div>
         </div>
     </div>
+
+        <!-- Property list -->
+    <div
+      class="grid md:grid-cols-2 xl:grid-cols-3 gap-4 p-4 w-full h-full overflow-y-scroll shadow-2xl rounded-2xl scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      <?php
+      //  DB connection
+      require_once 'db_connect.php';
+
+      // Use a prepared statement and cast user_id to int to avoid SQL injection and parsing issues
+      $stmt = $conn->prepare("SELECT * FROM property ORDER BY id DESC LIMIT 10");
+      $stmt->execute();
+      $result = $stmt->get_result();
+
+
+      if ($result && $result->num_rows > 0):
+        while ($row = $result->fetch_assoc()):
+          ?>
+
+          <!-- Propery card -->
+          <div class="w-full h-[215px] bg-blue-400 rounded-2xl shadow-lg relative overflow-hidden">
+            <!-- Image -->
+            <div class="w-full h-full">
+              <img src="<?= htmlspecialchars($row['image'] ?: 'https://picsum.photos/800') ?>" alt="Property Image"
+                class="w-full h-full object-cover">
+            </div>
+
+            <!-- Overlay -->
+            <div class="absolute inset-0 bg-black/60 pointer-events-none"></div>
+
+            <!-- Content -->
+            <div class="w-full h-full absolute inset-0 flex flex-col justify-between p-2">
+              <div class="flex justify-between">
+                <div class="px-3 py-1 text-sm bg-blue-600 rounded-lg text-white">
+                  <p><?= $row['type'] === 'rent' ? 'Alquiler' : 'Venta' ?></p>
+                </div>
+                <div class="flex gap-2">
+                  <div class="flex gap-1 items-center text-white ">
+                    <p class="font-semibold">
+                      <?= $row['beds'] ?? '0' ?>
+                    </p>
+                    <i class='bx bx-bed text-xl'></i>
+                  </div>
+                  <div class="flex gap-1 items-center text-white ">
+                    <p class="font-semibold">
+                      <?= $row['baths'] ?? '0' ?>
+                    </p>
+                    <i class='bx bx-bath text-xl'></i>
+                  </div>
+                  <div class="flex gap-1 items-center text-white ">
+                    <?php if ($row['garage']): ?>
+                      <i class='bx bx-garage text-xl'></i>
+                    <?php endif; ?>
+                  </div>
+                </div>
+              </div>
+              <div class="flex justify-between text-white ">
+                <div class="flex flex-col gap-1 justify-end">
+                  <div class="flex gap-2">
+                    <i class='bx bx-location-blank text-lg'></i>
+                    <p class="text-xs font-semibold">
+                      <?= htmlspecialchars($row['location'] ?? 'N/A') ?>
+                    </p>
+                  </div>
+                  <div class="flex gap-2">
+                    <i class='bx bx-ruler text-lg'></i>
+                    <p class="text-xs font-semibold">
+                      <?= htmlspecialchars($row['area'] ?? '0') ?> m²
+                    </p>
+                  </div>
+                  <div class="flex gap-2">
+                    <p class="text-xs font-semibold">USD</p>
+                    <p class="text-xs font-semibold"> <?= number_format($row['price'] ?? 0, 0, ',', '.') ?>
+                    </p>
+                  </div>
+                </div>
+                <div class="flex flex-col gap-2">
+                  <form method="POST" action="property/delete.php" onsubmit="return confirm('¿Eliminar este inmueble?');">
+                    <input type="hidden" name="id" value="<?= (int) $row['id'] ?>">
+                    <button type="submit" class="flex items-center justify-center p-2 bg-red-600 rounded-lg text-white">
+                      <i class="bx bx-trash text-xl"></i>
+                    </button>
+                  </form>
+
+                  <button type="button"
+                    class="editBtn flex items-center justify-center p-2 bg-blue-600 rounded-lg text-white"
+                    data-id="<?= $row['id'] ?>" data-title="<?= htmlspecialchars($row['title']) ?>"
+                    data-type="<?= $row['type'] ?>" data-price="<?= (int) $row['price'] ?>"
+                    data-location="<?= htmlspecialchars($row['location']) ?>" data-area="<?= (int) $row['area'] ?>"
+                    data-beds="<?= (int) $row['beds'] ?>" data-baths="<?= (int) $row['baths'] ?>"
+                    data-garage="<?= (int) $row['garage'] ?>"
+                    data-description="<?= htmlspecialchars($row['description']) ?>"
+                    data-image="<?= htmlspecialchars($row['image'] ? '/' . ltrim($row['image'], '/') : '') ?>">
+                    <i class="bx bx-edit text-xl"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <?php
+        endwhile;
+      endif;
+      ?>
+
+    </div>
+
     <!-- Footer -->
     <?php include 'includes/footer.php'; ?>
 </body>
