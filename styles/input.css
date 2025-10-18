@@ -2,6 +2,11 @@
 
 @theme {
   --color-primary: #242D4B;
+  --color-secondary: #30394F;
   --color-bg: #F8F8FF;
   --color-btn-primary: #014EFF;
 }
+
+@source "./**/*.php";
+@source "./**/*.html";
+@source "./**/*.js";
