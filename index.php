@@ -49,8 +49,7 @@
   <!-- Property list -->
   <h3 class="text-2xl text-center font-semibold my-8 sm:my-16">Ultimas oportunidades</h3>
 
-  <div
-    class="grid md:grid-cols-2 xl:grid-cols-3 gap-4 p-4 w-full px-4 sm:px-8">
+  <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-4 p-4 w-full px-4 sm:px-8">
     <?php
     //  DB connection
     require_once 'db_connect.php';
@@ -116,13 +115,13 @@
                     <?= htmlspecialchars($row['area'] ?? '0') ?> m²
                   </p>
                 </div>
-                <div class="flex gap-2">
-                  <p class="text-xs font-semibold">USD</p>
-                  <p class="text-xs font-semibold"> <?= number_format($row['price'] ?? 0, 0, ',', '.') ?>
-                  </p>
-                </div>
               </div>
-   
+              <div class="flex gap-2 p-4">
+                <p class="text-lg font-semibold">USD</p>
+                <p class="text-lg font-semibold"><?php echo "$" . number_format($row['price'] ?? 0, 0, ',', '.') ?>
+                </p>
+              </div>
+
             </div>
           </div>
         </div>
