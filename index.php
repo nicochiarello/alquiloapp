@@ -17,7 +17,7 @@
     <div class="flex flex-1 h-full ">
       <div class="relative basis-[100%] lg:basis-[40%] h-full ">
         <div class="lg:hidden absolute inset-0 w-full h-full">
-          <img class="w-full h-full object-cover" src="public/index_pic.png" alt="">
+          <img class="w-full h-full object-cover" src="public/index_pic.jpg" alt="">
         </div>
         <!-- overlay -->
         <div
@@ -40,7 +40,7 @@
       </div>
       <div class="relative hidden sm:block flex-1 w-full h-full">
         <div class="absolute inset-0 w-full h-full">
-          <img class="w-full h-full object-cover" src="public/index_pic.png" alt="">
+          <img class="w-full h-full object-cover" src="public/index_pic.jpg" alt="">
         </div>
       </div>
     </div>
@@ -76,7 +76,8 @@
           <div class="absolute inset-0 bg-black/60 pointer-events-none"></div>
 
           <!-- Content -->
-          <div class="w-full h-full absolute inset-0 flex flex-col justify-between p-2">
+          <a href="property_detail.php?id=<?php echo $row['id']; ?>">
+            <div class="w-full h-full absolute inset-0 flex flex-col justify-between p-2">
             <div class="flex justify-between">
               <div class="px-3 py-1 text-sm bg-blue-600 rounded-lg text-white">
                 <p><?= $row['type'] === 'rent' ? 'Alquiler' : 'Venta' ?></p>
@@ -124,6 +125,7 @@
 
             </div>
           </div>
+          </a>
         </div>
         <?php
       endwhile;
