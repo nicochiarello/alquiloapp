@@ -7,6 +7,10 @@
   <title>Document</title>
   <link rel="stylesheet" href="./styles/output.css">
   <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+
+  <!-- Trix -->
+  <link rel="stylesheet" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
+  <script src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
 </head>
 
 <?php
@@ -181,7 +185,7 @@ if (!isset($_SESSION['user_id'])) {
                     data-location="<?= htmlspecialchars($row['location']) ?>" data-area="<?= (int) $row['area'] ?>"
                     data-beds="<?= (int) $row['beds'] ?>" data-baths="<?= (int) $row['baths'] ?>"
                     data-garage="<?= (int) $row['garage'] ?>"
-                    data-description="<?= htmlspecialchars($row['description']) ?>"
+                    data-description="<?= htmlspecialchars($row['description'], ENT_QUOTES) ?>"
                     data-image="<?= htmlspecialchars($row['image'] ? '/' . ltrim($row['image'], '/') : '') ?>">
                     <i class="bx bx-edit text-xl"></i>
                   </button>
@@ -284,10 +288,8 @@ if (!isset($_SESSION['user_id'])) {
 
         <!-- Description -->
         <div class="flex flex-col gap-1">
-          <label for="description" class="text-sm font-medium">Descripción</label>
-          <textarea id="description" name="description" rows="4" required
-            class="border rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Luminoso, cercano a..."></textarea>
+          <input id="description" type="hidden" name="description" value="">
+          <trix-editor input="description" class="border rounded-lg px-3 py-2"></trix-editor>
         </div>
 
         <!-- Image -->
@@ -338,6 +340,10 @@ if (!isset($_SESSION['user_id'])) {
     const descTxt = document.getElementById('description');
     const imageInp = document.getElementById('image');
 
+    const trixInput = document.getElementById('description');
+    const trixEditor = document.querySelector('trix-editor[input="description"]');
+
+
     // Current image preview for edit
     const currentImageWrap = document.getElementById('currentImageWrap');
     const currentImage = document.getElementById('currentImage');
@@ -347,10 +353,18 @@ if (!isset($_SESSION['user_id'])) {
       if (typeof modal.showModal === 'function') modal.showModal();
       else modal.setAttribute('open', '');
     }
+
     function closeDialog() {
       modal.close();
       form.reset();
     }
+
+    function decodeHtml(str = '') {
+      const t = document.createElement('textarea');
+      t.innerHTML = str;
+      return t.value;
+    }
+
 
     function setModeCreate() {
       modalTitle.textContent = 'Crear inmueble';
@@ -373,6 +387,9 @@ if (!isset($_SESSION['user_id'])) {
 
       currentImageWrap.classList.add('hidden');
       currentImage.src = '';
+
+      trixInput.value = '';
+      trixEditor.editor.loadHTML(''); // clears the editor
     }
 
     function setModeEdit(data) {
@@ -393,6 +410,7 @@ if (!isset($_SESSION['user_id'])) {
       garageChk.checked = (String(data.garage) === '1');
       descTxt.value = data.description || '';
       imageInp.value = "";
+      document.getElementById('description').value = data.description || '';
 
 
 
@@ -406,6 +424,13 @@ if (!isset($_SESSION['user_id'])) {
         currentImage.src = '';
       }
 
+      const html = decodeHtml(data.description || '');
+
+      // Sets the hidden input value (source of truth of the trix editor)
+      trixInput.value = html;
+
+      // Update the visual editor
+      trixEditor.editor.loadHTML(html);
     }
 
     // Open create
