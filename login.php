@@ -14,7 +14,7 @@
   <!-- Navbar  -->
   <?php include 'includes/navbar.php'; ?>
 
-  <div class="h-full flex flex-1 items-center justify-center">
+  <div class="h-full flex flex-1 items-center justify-center p-2">
     <div class="bg-white rounded-2xl px-8 py-16 shadow-md w-full max-w-md">
       <!-- Logo -->
       <div class="w-24 mx-auto mb-8">
