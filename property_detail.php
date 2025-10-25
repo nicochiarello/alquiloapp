@@ -24,6 +24,21 @@ if (!isset($_GET["id"])) {
     $stmt->close();
 }
 
+// Fetch user owner details
+$user_id = $row['user_id'];
+$sql = "SELECT * FROM users WHERE id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+
+$result = $stmt->get_result();
+
+$owner = $result->fetch_assoc();
+if ($owner) {
+    $user_email = $owner['email'];
+    $user_phone = $owner['phone'];
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -114,12 +129,14 @@ if (!isset($_GET["id"])) {
 
 
                 <div class="flex gap-8 text-lg">
-                    <div class="px-4 py-1 bg-blue-700 rounded-lg text-white w-fit">
+                    <a href="<?php echo 'https://wa.me/' . $user_phone; ?>"
+                        class="px-4 py-1 bg-blue-700 rounded-lg text-white w-fit">
                         <p>Whatsapp</p>
-                    </div>
-                    <div class="px-8 py-1 bg-blue-700 rounded-lg text-white w-fit">
+                    </a>
+                    <a href="mailto:<?php echo $user_email; ?>"
+                        class="px-8 py-1 bg-blue-700 rounded-lg text-white w-fit">
                         <p>Email</p>
-                    </div>
+                    </a>
                 </div>
             </div>
 
