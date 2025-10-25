@@ -43,6 +43,14 @@
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                     </div>
                     <div>
+                        <label for="phone" class="block text-sm font-medium text-gray-700">Telefono</label>
+                        <input type="text" id="phone" name="phone" required
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        <?php if (isset($_GET['errors']['phone'])): ?>
+                            <p class="text-red-500 text-sm mt-1"><?= htmlspecialchars($_GET['errors']['phone']) ?></p>
+                        <?php endif; ?>
+                    </div>
+                    <div>
                         <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
                         <input type="password" id="password" name="password" required
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
