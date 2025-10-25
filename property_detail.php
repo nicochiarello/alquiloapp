@@ -51,7 +51,7 @@ if (!isset($_GET["id"])) {
         <div
             class="flex flex-col lg:flex-row justify-between gap-8  items-center w-full max-w-[1400px] mx-auto my-8 px-4">
             <div class="w-full flex flex-col lg:flex-1 h-[600px] gap-8">
-                <div class="relative flex flex-1 w-full bg-black rounded-2xl">
+                <div class="relative flex flex-1 w-full shadow-2xl border border-gray-100 rounded-2xl">
                     <div class="absolute inset-0 w-full h-full">
                         <img class="w-full h-full object-contain" src="<?php echo htmlspecialchars($row['image']); ?>"
                             alt="">
@@ -67,11 +67,10 @@ if (!isset($_GET["id"])) {
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
-            <div class="flex flex-col w-full lg:w-[450px] h-[600px] gap-16 p-8 shadow-2xl rounded-2xl text-2xl">
+
+            <div
+                class="flex flex-col w-full lg:w-[450px] h-[600px] gap-16 p-8 shadow-2xl rounded-2xl text-2xl border border-gray-200">
                 <div class="px-4 py-1 bg-blue-600 rounded-lg text-white w-fit">
                     <p><?= $row['type'] === 'rent' ? 'Alquiler' : 'Venta' ?></p>
                 </div>
