@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Administrador | AlquiloApp</title>
   <link rel="stylesheet" href="./styles/output.css">
   <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
 
@@ -27,14 +27,14 @@ if (!isset($_SESSION['user_id'])) {
   <!-- Sidebar -->
   <div
     class="hidden sm:flex flex-col items-center lg:items-start gap-2  lg:w-[280px] h-screen bg-primary p-4 rounded-r-4xl">
-    <div class="flex gap-4 items-center">
+    <a href="index.php" class="flex gap-4 items-center">
       <!-- Logo -->
       <div class="w-8 h-8">
         <?php include './public/logo.svg'; ?>
       </div>
 
       <h1 class="hidden lg:block text-2xl font-semibold text-white">AlquiloApp</h1>
-    </div>
+    </a>
     <div class="flex flex-col justify-between items-center lg:items-start h-full w-full mt-10">
       <div
         class="text-white w-full h-fit flex items-center justify-center lg:justify-start gap-4 p-4 rounded-2xl bg-gradient-to-r from-[#014EFF] to-[#578AFF]">
@@ -48,26 +48,26 @@ if (!isset($_SESSION['user_id'])) {
             Cerrar sesión
           </a>
         </li>
-        <li class="flex items-center gap-4">
+        <!-- <li class="flex items-center gap-4">
           <i class='bxr  bx-help-circle'></i>
           <a class="hidden lg:block" href="#">
             Ayuda
           </a>
-        </li>
+        </li> -->
       </ul>
     </div>
   </div>
 
   <!-- Navbar mobile -->
   <div class="sm:hidden w-full h-16 bg-primary flex items-center justify-between px-4">
-    <div class="flex gap-2 items-center">
+    <a href="index.php" class="flex gap-2 items-center">
       <div class="w-8 h-8">
         <?php include './public/logo.svg'; ?>
       </div>
       <h1 class="text-2xl font-semibold text-white">AlquiloApp</h1>
-    </div>
+    </a>
     <div class="flex gap-4">
-      <i class='bxr  bx-help-circle text-white text-2xl'></i>
+      <!-- <i class='bxr  bx-help-circle text-white text-2xl'></i> -->
       <a href="auth/logout.php">
         <i class='bxr  bx-arrow-in-left-square-half  text-white text-2xl'></i>
       </a>

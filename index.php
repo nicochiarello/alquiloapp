@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- <script src="https://cdn.tailwindcss.com"></script> -->
   <link rel="stylesheet" href="./styles/output.css">
-  <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdn.boxicons.com/fonts/basic/boxicons.min.css">
   <title>AlquiloApp</title>
 </head>
 
@@ -36,12 +36,11 @@
           <button class="px-8 py-2 text-white bg-blue-500 w-fit rounded-full font-semibold text-2xl mt-12">
             <a href=<?php
             if (isset($_SESSION['user_id'])) {
-                echo 'dashboard.php';
+              echo 'dashboard.php';
             } else {
-                echo 'login.php';
+              echo 'login.php';
             }
-            ?>
-            >Publica Gratis</a>
+            ?>>Publica Gratis</a>
           </button>
         </div>
       </div>
@@ -85,53 +84,53 @@
           <!-- Content -->
           <a href="property_detail.php?id=<?php echo $row['id']; ?>">
             <div class="w-full h-full absolute inset-0 flex flex-col justify-between p-2">
-            <div class="flex justify-between">
-              <div class="px-3 py-1 text-sm bg-blue-600 rounded-lg text-white">
-                <p><?= $row['type'] === 'rent' ? 'Alquiler' : 'Venta' ?></p>
-              </div>
-              <div class="flex gap-2">
-                <div class="flex gap-1 items-center text-white ">
-                  <p class="font-semibold">
-                    <?= $row['beds'] ?? '0' ?>
-                  </p>
-                  <i class='bx bx-bed text-xl'></i>
-                </div>
-                <div class="flex gap-1 items-center text-white ">
-                  <p class="font-semibold">
-                    <?= $row['baths'] ?? '0' ?>
-                  </p>
-                  <i class='bx bx-bath text-xl'></i>
-                </div>
-                <div class="flex gap-1 items-center text-white ">
-                  <?php if ($row['garage']): ?>
-                    <i class='bx bx-garage text-xl'></i>
-                  <?php endif; ?>
-                </div>
-              </div>
-            </div>
-            <div class="flex justify-between text-white ">
-              <div class="flex flex-col gap-1 justify-end">
-                <div class="flex gap-2">
-                  <i class='bx bx-location-blank text-lg'></i>
-                  <p class="text-xs font-semibold">
-                    <?= htmlspecialchars($row['location'] ?? 'N/A') ?>
-                  </p>
+              <div class="flex justify-between">
+                <div class="px-3 py-1 text-sm bg-blue-600 rounded-lg text-white">
+                  <p><?= $row['type'] === 'rent' ? 'Alquiler' : 'Venta' ?></p>
                 </div>
                 <div class="flex gap-2">
-                  <i class='bx bx-ruler text-lg'></i>
-                  <p class="text-xs font-semibold">
-                    <?= htmlspecialchars($row['area'] ?? '0') ?> m²
-                  </p>
+                  <div class="flex gap-1 items-center text-white ">
+                    <p class="font-semibold">
+                      <?= $row['beds'] ?? '0' ?>
+                    </p>
+                    <i class='bx bx-bed text-xl'></i>
+                  </div>
+                  <div class="flex gap-1 items-center text-white ">
+                    <p class="font-semibold">
+                      <?= $row['baths'] ?? '0' ?>
+                    </p>
+                    <i class='bx bx-bath text-xl'></i>
+                  </div>
+                  <div class="flex gap-1 items-center text-white ">
+                    <?php if ($row['garage']): ?>
+                      <i class='bx bx-garage text-xl'></i>
+                    <?php endif; ?>
+                  </div>
                 </div>
               </div>
-              <div class="flex gap-2 p-4">
-                <p class="text-lg font-semibold">USD</p>
-                <p class="text-lg font-semibold"><?php echo "$" . number_format($row['price'] ?? 0, 0, ',', '.') ?>
-                </p>
-              </div>
+              <div class="flex justify-between text-white ">
+                <div class="flex flex-col gap-1 justify-end">
+                  <div class="flex gap-2">
+                    <i class='bx bx-location-blank text-lg'></i>
+                    <p class="text-xs font-semibold">
+                      <?= htmlspecialchars($row['location'] ?? 'N/A') ?>
+                    </p>
+                  </div>
+                  <div class="flex gap-2">
+                    <i class='bx bx-ruler text-lg'></i>
+                    <p class="text-xs font-semibold">
+                      <?= htmlspecialchars($row['area'] ?? '0') ?> m²
+                    </p>
+                  </div>
+                </div>
+                <div class="flex gap-2 p-4">
+                  <p class="text-lg font-semibold">USD</p>
+                  <p class="text-lg font-semibold"><?php echo "$" . number_format($row['price'] ?? 0, 0, ',', '.') ?>
+                  </p>
+                </div>
 
+              </div>
             </div>
-          </div>
           </a>
         </div>
         <?php
