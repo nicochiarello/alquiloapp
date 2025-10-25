@@ -34,7 +34,14 @@
             Nosotros lo hacemos posible, busca en AlquiloApp y hacelo realidad</p>
 
           <button class="px-8 py-2 text-white bg-blue-500 w-fit rounded-full font-semibold text-2xl mt-12">
-            <a href="">Publica Gratis</a>
+            <a href=<?php
+            if (isset($_SESSION['user_id'])) {
+                echo 'dashboard.php';
+            } else {
+                echo 'login.php';
+            }
+            ?>
+            >Publica Gratis</a>
           </button>
         </div>
       </div>
