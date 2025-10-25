@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once("../db.php");
+require_once("../db_connect.php");
 
 // --- Read inputs ---
 $email = isset($_POST['email']) ? trim($_POST['email']) : '';

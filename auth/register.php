@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include("../db.php");
+include("../db_connect.php");
 
 // --- Read & sanitize inputs ---
 $email = isset($_POST['email']) ? trim($_POST['email']) : '';
