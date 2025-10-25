@@ -8,10 +8,10 @@
 
         </div>
         <div class="flex sm:flex-col gap-2">
-            <a href="#" class="text-white">Github</a>
-            <a href="#" class="text-white">Figma</a>
-            <a href="#" class="text-white">LinkedIn</a>
-            <a href="#" class="text-white">UCH</a>
+            <a href="https://github.com/nicochiarello/alquiloapp" class="text-white">Github</a>
+            <a href="https://www.figma.com/design/4EFxIIIBt8MiZolrTzkR99/AlquiloApp?node-id=0-1&t=JvItSvOGOF4e0ET5-1" class="text-white">Figma</a>
+            <!-- <a href="#" class="text-white">LinkedIn</a> -->
+            <a href="https://campus.uch.edu.ar/user/view.php?id=8389&course=11424" class="text-white">UCH</a>
         </div>
     </div>
     <div class="w-full bg-primary py-2">
