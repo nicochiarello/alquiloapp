@@ -9,9 +9,18 @@
   <link href="https://cdn.boxicons.com/fonts/basic/boxicons.min.css" rel="stylesheet">
 </head>
 
-<body class="bg-gray-100">
-  <div class="min-h-screen flex items-center justify-center">
-    <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
+<body class="bg-gray-100 min-h-screen flex flex-col flex-1">
+
+  <!-- Navbar  -->
+  <?php include 'includes/navbar.php'; ?>
+
+  <div class="h-full flex flex-1 items-center justify-center">
+    <div class="bg-white rounded-2xl px-8 py-16 shadow-md w-full max-w-md">
+      <!-- Logo -->
+      <div class="w-24 mx-auto mb-8">
+        <?php include './public/logo.svg'; ?>
+      </div>
+
       <h2 class="text-2xl font-bold mb-6 text-center">Iniciar sesión</h2>
 
       <?php if (!empty($_GET['errors']) && is_array($_GET['errors'])): ?>
