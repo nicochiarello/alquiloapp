@@ -13,7 +13,7 @@ $beds        = (int)($_POST['beds'] ?? 0);
 $baths       = (int)($_POST['baths'] ?? 0);
 $garage      = isset($_POST['garage']) ? 1 : 0;
 $description = $_POST['description'] ?? '';
-$imageOld    = $_POST['image_old'] ?? ''; // relative path like "uploads/xxx.ext"
+$imageOld    = $_POST['image_old'] ?? ''; // relative path
 $imagePath   = ''; // new uploaded path (if any)
 
 if ($id <= 0) {
@@ -21,7 +21,7 @@ if ($id <= 0) {
   exit('Invalid id');
 }
 
-// --- Optional image replace ---
+// --- Image replacement ---
 if (!empty($_FILES['image']['name']) && is_uploaded_file($_FILES['image']['tmp_name'])) {
     $uploadsDir = __DIR__ . '/../uploads';
     if (!is_dir($uploadsDir)) {
