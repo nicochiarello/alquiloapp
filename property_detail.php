@@ -50,7 +50,6 @@ if ($owner) {
     <title>
         <?php echo $row['title']; ?>
     </title>
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <link rel="stylesheet" href="./styles/output.css">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
 </head>
