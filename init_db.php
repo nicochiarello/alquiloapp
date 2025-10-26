@@ -8,15 +8,15 @@ $dbName = 'alquiloapp';
 $conn = new mysqli($host, $user, $pass);
 
 if ($conn->connect_error) {
-    die("❌ Error de conexión: " . $conn->connect_error);
+    die("Error de conexión: " . $conn->connect_error);
 }
 
 // --- 2. Create database if not exists ---
 $sql = "CREATE DATABASE IF NOT EXISTS `$dbName` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci";
 if ($conn->query($sql) === TRUE) {
-    echo "✅ Base de datos '$dbName' lista.<br>";
+    echo "Base de datos '$dbName' lista.<br>";
 } else {
-    die("❌ Error al crear base de datos: " . $conn->error);
+    die("Error al crear base de datos: " . $conn->error);
 }
 
 // --- 3. Select the database ---
@@ -45,10 +45,10 @@ CREATE TABLE IF NOT EXISTS property (
 if ($conn->query($tableSql) === TRUE) {
     echo "✅ Tabla 'property' creada o ya existente.<br>";
 } else {
-    die("❌ Error al crear tabla: " . $conn->error);
+    die("Error al crear tabla: " . $conn->error);
 }
 
-// --- Create the table users ---
+// --- Create the users table ---
 $tableSql = "
 CREATE TABLE IF NOT EXISTS users (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -62,9 +62,9 @@ CREATE TABLE IF NOT EXISTS users (
 ";
 
 if ($conn->query($tableSql) === TRUE) {
-    echo "✅ Tabla 'users' creada o ya existente.<br>";
+    echo "Tabla 'users' creada o ya existente.<br>";
 } else {
-    die("❌ Error al crear tabla: " . $conn->error);
+    die("Error al crear tabla: " . $conn->error);
 }
 
 echo "✅ Inicialización completa.<br>";
