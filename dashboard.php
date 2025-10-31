@@ -207,7 +207,7 @@ if (!isset($_SESSION['user_id'])) {
 
     </div>
 
-    <!-- Create Property Modal -->
+    <!-- Create-Edit Property Modal -->
     <dialog id="createModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
   w-[min(600px,92vw)] max-h-[90svh] overflow-auto rounded-2xl p-0 shadow-xl
   [&::backdrop]:bg-black/50 [&::backdrop]:backdrop-blur-sm">
@@ -220,7 +220,7 @@ if (!isset($_SESSION['user_id'])) {
         </button>
       </div>
 
-      <!-- Form for update-delete -->
+      <!-- Form for update-create -->
       <form id="propertyForm" action="property/create.php" method="POST" enctype="multipart/form-data"
         class="p-4 space-y-4">
         <!-- Hidden for EDIT -->
@@ -483,22 +483,22 @@ if (!isset($_SESSION['user_id'])) {
         currentImage.src = '';
       }
 
-      const html = decodeHtml(data.description || '');
+      const decodedHtml = decodeHtml(data.description || '');
 
       // Sets the hidden input value (source of truth of the trix editor)
-      trixInput.value = html;
+      trixInput.value = decodedHtml;
 
       // Update the visual editor
-      trixEditor.editor.loadHTML(html);
+      trixEditor.editor.loadHTML(decodedHtml);
     }
 
-    // Open create
+    // Open create event listener
     openBtn?.addEventListener('click', () => {
       setModeCreate();
       openDialog();
     });
 
-    // Open edit
+    // Open edit event listener
     document.addEventListener('click', (e) => {
       const btn = e.target.closest('.editBtn');
       if (!btn) return;
@@ -528,6 +528,7 @@ if (!isset($_SESSION['user_id'])) {
     // Backdrop click
     modal.addEventListener('click', (e) => {
       const rect = modal.getBoundingClientRect();
+      // Checks if the click was outside the dialog
       const inDialog = (
         e.clientX >= rect.left && e.clientX <= rect.right &&
         e.clientY >= rect.top && e.clientY <= rect.bottom

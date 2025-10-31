@@ -62,7 +62,7 @@
     //  DB connection
     require_once 'db_connect.php';
 
-    // Use a prepared statement and cast user_id to int to avoid SQL injection and parsing issues
+    // Use a prepared statement to avoid SQL injection
     $stmt = $conn->prepare("SELECT * FROM property ORDER BY id DESC LIMIT 10");
     $stmt->execute();
     $result = $stmt->get_result();
@@ -76,7 +76,7 @@
         <div class="w-full h-[215px] bg-blue-400 rounded-2xl shadow-lg relative overflow-hidden">
           <!-- Image -->
           <div class="w-full h-full">
-            <img src="<?= htmlspecialchars($row['image'] ?: 'https://picsum.photos/800') ?>" alt="Property Image"
+            <img src="<?php echo htmlspecialchars($row['image'] ?: 'https://picsum.photos/800') ?>" alt="Property Image"
               class="w-full h-full object-cover">
           </div>
 

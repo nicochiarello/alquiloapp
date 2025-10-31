@@ -2,7 +2,7 @@
 session_start();
 require_once __DIR__ . '/../db_connect.php';
 
-// --- Read POST (raw, minimal) ---
+// --- Read POST ---
 $id          = isset($_POST['id']) ? (int)$_POST['id'] : 0;
 $title       = $_POST['title'] ?? '';
 $type        = $_POST['type'] ?? '';

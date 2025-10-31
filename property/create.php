@@ -27,6 +27,7 @@ $imagePath = null;
 if (!empty($_FILES['image']['name'])) {
     $uploadsDir = __DIR__ . '/../uploads';
     if (!is_dir($uploadsDir)) {
+        // 0775 permissions make directory writable by group
         @mkdir($uploadsDir, 0775, true);
     }
     $basename = basename($_FILES['image']['name']);
