@@ -30,8 +30,11 @@ if (!empty($_FILES['image']['name'])) {
         // 0775 permissions make directory writable by group
         @mkdir($uploadsDir, 0775, true);
     }
+
+    // basename returns filename with extension
+    // e.g., from '/path/to/my photo.jpg' returns 'my photo.jpg'
     $basename = basename($_FILES['image']['name']);
-    // Simplme name
+    // Simple name
     $target = $uploadsDir . '/' . time() . '_' . preg_replace('/\s+/', '_', $basename);
     if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
         // Relative path to serve later
