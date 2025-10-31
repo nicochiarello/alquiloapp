@@ -59,6 +59,7 @@ $result = $stmt->get_result();
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <link rel="stylesheet" href="./styles/output.css" />
     <link href="https://cdn.boxicons.com/fonts/basic/boxicons.min.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="./public/favicon.ico" type="image/x-icon">
     <title>Todas las propiedades | AlquiloApp</title>
 </head>
 

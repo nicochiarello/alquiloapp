@@ -7,6 +7,7 @@
     <title>Registro</title>
     <link rel="stylesheet" href="./styles/output.css">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+    <link rel="shortcut icon" href="./public/favicon.ico" type="image/x-icon">
 </head>
 
 <body>

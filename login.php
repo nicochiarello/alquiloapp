@@ -7,6 +7,7 @@
   <title>Login</title>
   <link rel="stylesheet" href="./styles/output.css">
   <link href="https://cdn.boxicons.com/fonts/basic/boxicons.min.css" rel="stylesheet">
+  <link rel="shortcut icon" href="./public/favicon.ico" type="image/x-icon">
 </head>
 
 <body class="bg-gray-100 min-h-screen flex flex-col flex-1">
