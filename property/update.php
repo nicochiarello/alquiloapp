@@ -106,5 +106,5 @@ $stmt->close();
 $conn->close();
 
 // Back to home with toast flag
-header('Location: /alquiloapp/dashboard.php?created=1');
+header('Location: /alquiloapp/dashboard.php?updated=1');
 exit;
