@@ -9,7 +9,6 @@ $pass  = isset($_POST['password']) ? $_POST['password'] : '';
 
 // --- Validate inputs ---
 $fieldErrors = [];   // field -> message
-$errors = [];        // general messages
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
   $fieldErrors['email'] = "Email inválido.";
@@ -20,9 +19,7 @@ if ($pass === '' || strlen($pass) < 8) {
 
 if (!empty($fieldErrors)) {
   $qs = http_build_query([
-    'field_errors' => $fieldErrors,
     'errors' => ["Revisá los campos e intentá de nuevo."],
-    'old' => ['email' => $email],
   ]);
   header("Location: /alquiloapp/login.php?$qs");
   exit;
@@ -41,7 +38,6 @@ $stmt->close();
 if (!$user || !password_verify($pass, $user['password'])) {
   $qs = http_build_query([
     'errors' => ["Credenciales inválidas."],
-    'old' => ['email' => $email],
   ]);
   header("Location: /alquiloapp/login.php?$qs");
   exit;
@@ -51,6 +47,7 @@ if (!$user || !password_verify($pass, $user['password'])) {
 $_SESSION['user_id']    = (int)$user['id'];
 $_SESSION['user_email'] = $user['email'];
 $_SESSION['user_name']  = $user['name'];
+
 session_regenerate_id(true);
 
 // --- Redirect (dashboard/home) ---
