@@ -45,6 +45,6 @@ if (!empty($imgPath)) {
 
 $conn->close();
 
-// 4) Back to home
-header('Location: /alquiloapp/dashboard.php?created=1');
+// Back to home
+header('Location: /alquiloapp/dashboard.php?deleted=1');
 exit;
