@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./styles/output.css">
   <link rel="stylesheet" href="https://cdn.boxicons.com/fonts/basic/boxicons.min.css">
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="./public/favicon.ico" type="image/x-icon">
+
   <title>AlquiloApp</title>
 </head>
 
@@ -138,6 +141,20 @@
     ?>
 
   </div>
+
+  <!-- All properties button -->
+  <?php
+  if ($result && $result->num_rows > 0) {
+    ?>
+    <div class="flex justify-center my-8">
+      <button class="px-6 py-2 bg-blue-500 text-white rounded-full font-semibold text-lg">
+        <a href="properties.php">Ver todas las propiedades</a>
+      </button>
+    </div>
+    <?php
+  }
+  ?>
+
 
   <!-- Footer -->
   <?php include 'includes/footer.php'; ?>
