@@ -11,6 +11,11 @@
   <!-- Trix -->
   <link rel="stylesheet" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
   <script src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
+
+  <!-- Toastify -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
 </head>
 
 <?php
@@ -312,8 +317,60 @@ if (!isset($_SESSION['user_id'])) {
   </main>
 
 
+  <?php
+  // Toasts
+  
+  // Created
+  if (isset($_GET['created']) && $_GET['created'] == 1) {
+    ?>
+    <script>
+      Toastify({
+        text: "Creado con éxito ✅",
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#242D4B",
+        stopOnFocus: true,
+      }).showToast();
+    </script>
+    <?php
+  }
+
+  // Updated
+  if (isset($_GET['updated']) && $_GET['updated'] == 1) {
+    ?>
+    <script>
+      Toastify({
+        text: "Actualizado con éxito ✅",
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#242D4B",
+        stopOnFocus: true,
+      }).showToast();
+    </script>
+    <?php
+  }
+
+  // Deleted
+  if (isset($_GET['deleted']) && $_GET['deleted'] == 1) {
+    ?>
+    <script>
+      Toastify({
+        text: "Eliminado con éxito ✅",
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#242D4B",
+        stopOnFocus: true,
+      }).showToast();
+    </script>
+    <?php
+  }
+  ?>
 
 
+  <!-- Modal script -->
   <script>
     // Elements
     const openBtn = document.getElementById('openCreate');
