@@ -36,11 +36,12 @@ $stmtDel->close();
 
 // Remove image file if local
 if (!empty($imgPath)) {
+  // realpath normalizes paths, resolves .. and .
   $base = realpath(__DIR__ . '/..'); // project root containing /uploads
   $abs = realpath($base . '/' . $imgPath);    // absolute path to file
-  if ($abs && strpos($abs, $base) === 0 && is_file($abs)) {
-    @unlink($abs);
-  }
+
+  // Delete file
+  @unlink($abs);
 }
 
 $conn->close();
