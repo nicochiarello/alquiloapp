@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS property (
 ";
 
 if ($conn->query($tableSql) === TRUE) {
-    echo "✅ Tabla 'property' creada o ya existente.<br>";
+    echo "- Tabla 'property' creada o ya existente.<br>";
 } else {
     die("Error al crear tabla: " . $conn->error);
 }
@@ -62,12 +62,12 @@ CREATE TABLE IF NOT EXISTS users (
 ";
 
 if ($conn->query($tableSql) === TRUE) {
-    echo "Tabla 'users' creada o ya existente.<br>";
+    echo "- Tabla 'users' creada o ya existente.<br>";
 } else {
     die("Error al crear tabla: " . $conn->error);
 }
 
-echo "✅ Inicialización completa.<br>";
+echo "- Inicialización completa.<br>";
 
 // --- 5. Close connection ---
 $conn->close();
