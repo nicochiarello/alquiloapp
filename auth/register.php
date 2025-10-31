@@ -11,7 +11,7 @@ $pass1 = isset($_POST['password']) ? $_POST['password'] : '';
 $pass2 = isset($_POST['confirm_password']) ? $_POST['confirm_password'] : '';
 
 // Input validation
-$errors = [];
+$fieldErrors = [];
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $fieldErrors['email'] = "Email inválido.";
@@ -32,11 +32,6 @@ if ($pass1 !== $pass2) {
 if (!empty($fieldErrors)) {
     $qs = http_build_query([
         'errors' => $fieldErrors,
-        'old'    => [
-            'email' => $email,
-            'name'  => $name,
-            'phone'=> $phone
-        ],
     ]);
     header("Location: /alquiloapp/register.php?$qs");
     exit;
