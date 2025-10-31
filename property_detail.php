@@ -66,7 +66,7 @@ if ($owner) {
         <div
             class="flex flex-col lg:flex-row justify-between gap-8  items-center w-full max-w-[1400px] mx-auto my-8 px-4">
             <div class="w-full flex flex-col lg:flex-1 h-[600px] gap-8">
-                <div class="relative flex flex-1 w-full shadow-2xl border border-gray-100 rounded-2xl">
+                <div class="relative flex flex-1 w-full shadow-2xl border border-gray-100 rounded-2xl overflow-hidden">
                     <div class="absolute inset-0 w-full h-full">
                         <img class="w-full h-full object-contain" src="<?php echo htmlspecialchars($row['image']); ?>"
                             alt="">
